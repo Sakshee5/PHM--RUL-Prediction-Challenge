@@ -32,7 +32,7 @@ import time
 from google.colab import drive
 drive.mount("/content/gdrive")
 
-filenames = ['N-CMAPSS_DS01-005.h5', 'N-CMAPSS_DS03-012.h5', 'N-CMAPSS_DS04.h5', 'N-CMAPSS_DS05.h5', 'N-CMAPSS_DS06.h5', 'N-CMAPSS_DS07.h5', 'N-CMAPSS_DS08a-009.h5', 'N-CMAPSS_DS08c-008.h5', 'N-CMAPSS_DS08d-010.h5']
+filenames = ['N-CMAPSS_DS01-005.h5', 'N-CMAPSS_DS03-012.h5', 'N-CMAPSS_DS04.h5', 'N-CMAPSS_DS05.h5', 'N-CMAPSS_DS06.h5', 'N-CMAPSS_DS07.h5', 'N-CMAPSS_DS08a-009.h5']
 
 # Time tracking, Operation time (min):  0.003
 t = time.process_time() 
