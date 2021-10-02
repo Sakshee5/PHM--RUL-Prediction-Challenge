@@ -9,7 +9,7 @@ from pandas import DataFrame
 import matplotlib.pyplot as plt
 from matplotlib import gridspec
 # %matplotlib inline
-from keras.preprocessing.sequence import TimeseriesGenerator
+# from keras.preprocessing.sequence import TimeseriesGenerator
 from sklearn import metrics
 
 import warnings
@@ -29,8 +29,14 @@ from tensorflow.keras import Input, Model
 from tqdm import tqdm
 import time
 
-from google.colab import drive
-drive.mount("/content/gdrive")
+
+if tf.test.gpu_device_name(): 
+    print('Default GPU Device:{}'.format(tf.test.gpu_device_name()))
+else:
+   print("GPU not being utilized")
+
+# ADD PATH
+%cd local/path/to/filenames
 
 filenames = ['N-CMAPSS_DS01-005.h5', 'N-CMAPSS_DS03-012.h5', 'N-CMAPSS_DS04.h5', 'N-CMAPSS_DS05.h5', 'N-CMAPSS_DS06.h5', 'N-CMAPSS_DS07.h5', 'N-CMAPSS_DS08a-009.h5']
 
