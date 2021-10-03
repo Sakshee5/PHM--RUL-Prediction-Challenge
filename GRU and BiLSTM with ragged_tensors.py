@@ -22,9 +22,10 @@ import tensorflow as tf
 from tensorflow import keras
 from keras.models import Sequential
 from tensorflow.keras import Sequential, layers, callbacks
-from tensorflow.keras.layers import Dense, LSTM,  Bidirectional, TimeDistributed
+from tensorflow.keras.layers import Dense, LSTM,  Bidirectional, TimeDistributed, GRU, Dropout, Dense
 from sklearn.model_selection import train_test_split
 from tensorflow.keras import Input, Model
+from sklearn.preprocessing import MinMaxScaler
 
 from tqdm import tqdm
 import time
@@ -97,7 +98,7 @@ for filename in filenames:
     del A, Y, df
 
 y = np.array(y)
-del df, Y, A, x
+del x
 
 X_train, X_test, y_train, y_test = train_test_split(data, y, train_size = 0.8, shuffle = True)
 X_train = tf.ragged.constant(X_train)
@@ -108,20 +109,20 @@ y_test = np.array(y_test)
 
 
 # Create GRU model
-def create_gru(units):
-    model = Sequential()
-    # Input layer
-    model.add(Input(shape=(None, 32), ragged=False))
-    model.add(GRU(units=units, return_sequences=True))
-    model.add(Dropout(0.2))
-    # Hidden layer
-    model.add(GRU(units=units / 2))
-    model.add(Dropout(0.2))
-    model.add(Dense(units=1))
-    # Compile model
-    model.compile(loss="mse", optimizer="adam")
+# def create_gru(units):
+#     model = Sequential()
+#     # Input layer
+#     model.add(Input(shape=(None, 32), ragged=False))
+#     model.add(GRU(units=units, return_sequences=True))
+#     model.add(Dropout(0.2))
+#     # Hidden layer
+#     model.add(GRU(units=units / 2))
+#     model.add(Dropout(0.2))
+#     model.add(Dense(units=1))
+#     # Compile model
+#     model.compile(loss="mse", optimizer="adam")
 
-    return model
+#     return model
 
 # Create BiLSTM model
 def create_bilstm(units):
@@ -151,9 +152,9 @@ def save_model(model, history, model_name):
     with open((model_name+'/trainHistoryDict'), 'wb') as file_pi:
         pickle.dump(history.history, file_pi)
 
-model_gru = create_gru(128)
-history_gru = fit_model(model_gru, X_train, y_train)
-save_model(model_gru, history_gru, 'GRU')
+# model_gru = create_gru(128)
+# history_gru = fit_model(model_gru, X_train, y_train)
+# save_model(model_gru, history_gru, 'GRU')
 
 model_bilstm = create_bilstm(128)
 history_bilstm = fit_model(model_bilstm, X_train, y_train)
